@@ -1,1 +1,2 @@
-APS.set_fixed_choice("froodara")
+APS.add_choice("froodara")
+APS.remove_choice("vulcanus")

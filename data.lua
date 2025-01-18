@@ -5,29 +5,27 @@ require("froodara")
 --START MAP GEN
 function MapGen_Froodara()
     local map_gen_setting = table.deepcopy(data.raw.planet.nauvis.map_gen_settings)
-    property_expression_names =
+    map_gen_setting.property_expression_names =
     {
-        elevation = "vulcanus_elevation",
-        temperature = "vulcanus_temperature",
-        moisture = "vulcanus_moisture",
-        aux = "vulcanus_aux",
-        cliffiness = "cliffiness_basic",
-        cliff_elevation = "cliff_elevation_from_elevation",
         ["entity:tungsten-ore:probability"] = "vulcanus_tungsten_ore_probability",
         ["entity:tungsten-ore:richness"] = "vulcanus_tungsten_ore_richness",
+        ["entity:calcite:probability"] = "vulcanus_calcite_probability",
+        ["entity:calcite:richness"] = "vulcanus_calcite_richness",
     }
     map_gen_setting.autoplace_controls = {
         
-        ["enemy-base"] = { frequency = 1.5, size = 1, richness = 1},
+        ["enemy-base"] = { frequency = 2, size = 1.25, richness = 1.25},
         ["stone"] = { frequency = 1, size = 1, richness = 1},
         ["iron-ore"] = { frequency = 1.5, size = 1, richness = 1},
         ["coal"] = { frequency = 2, size = 1, richness = 0.75},
         ["copper-ore"] = { frequency = 1, size = 1, richness = 1},
         ["crude-oil"] = { frequency = 1.25, size = 1, richness = 1},
         ["trees"] = { frequency = 2, size = 2, richness = 1 },
-        ["water"] = { frequency = 2, size = 2, richness = 2 },
+        ["water"] = { frequency = 1.75, size = 1.75, richness = 1.75},
         ["nauvis_cliff"] = { frequency = 0.75, size = 1, richness = 1},
+        ["vulcanus_volcanism"] = {},
         ["tungsten_ore"] = {},
+        ["calcite"] = {},
     }
 
     map_gen_setting.territory_settings = {
@@ -126,6 +124,7 @@ function MapGen_Froodara()
     map_gen_setting.autoplace_settings["entity"] =  { 
         settings =
         {
+        ["calcite"] = {},
         ["tungsten-ore"] = {},
         ["iron-ore"] = {},
         ["copper-ore"] = {},
@@ -176,7 +175,7 @@ local froodara =
 {
     type = "planet",
     name = "froodara", 
-    solar_power_in_space = nauvis.solar_power_in_space,
+    solar_power_in_space = 300,
     icon = "__planet-froodara__/graphics/planet-froodara.png",
     icon_size = 512,
     label_orientation = 0.55,
@@ -184,7 +183,7 @@ local froodara =
     starmap_icon_size = 512,
     magnitude = nauvis.magnitude,
     surface_properties = {
-        ["solar-power"] = 175,
+        ["solar-power"] = 200,
         ["pressure"] = data.raw["planet"]["vulcanus"].surface_properties["pressure"],
         ["magnetic-field"] = nauvis.surface_properties["magnetic-field"],
         ["day-night-cycle"] = nauvis.surface_properties["day-night-cycle"],
@@ -199,8 +198,8 @@ froodara.orbit = {
         type = "space-location",
         name = "star",
     },
-    distance = 20,
-    orientation = 0.22
+    distance = 12,
+    orientation = 0.26
 }
 
 local froodara_connection = {
@@ -229,10 +228,6 @@ data:extend {{
             type = "unlock-space-location",
             space_location = "froodara",
             use_icon_overlay_constant = true
-        },
-        {
-            type = "unlock-recipe",
-            recipe = "advanced-oxide-asteroid-crushing"
         }
     },
     prerequisites = {
