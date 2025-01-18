@@ -1,25 +1,41 @@
 --data.lua
 local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")
-
+require("froodara")
 
 --START MAP GEN
 function MapGen_Froodara()
-    -- Vulcanus-based generation
     local map_gen_setting = table.deepcopy(data.raw.planet.nauvis.map_gen_settings)
-
-    --map_gen_setting.terrain_segmentation = "very-high"
-
+    property_expression_names =
+    {
+        elevation = "vulcanus_elevation",
+        temperature = "vulcanus_temperature",
+        moisture = "vulcanus_moisture",
+        aux = "vulcanus_aux",
+        cliffiness = "cliffiness_basic",
+        cliff_elevation = "cliff_elevation_from_elevation",
+        ["entity:tungsten-ore:probability"] = "vulcanus_tungsten_ore_probability",
+        ["entity:tungsten-ore:richness"] = "vulcanus_tungsten_ore_richness",
+    }
     map_gen_setting.autoplace_controls = {
         
-        ["enemy-base"] = { frequency = 1, size = 1, richness = 1},
-        ["stone"] = { frequency = 2, size = 2, richness = 2},
-        ["iron-ore"] = { frequency = 2, size = 1, richness = 2},
-        ["coal"] = { frequency = 2, size = 1, richness = 2},
-        ["copper-ore"] = { frequency = 2, size = 1, richness = 2},
-        ["crude-oil"] = { frequency = 2, size = 2, richness = 3},
+        ["enemy-base"] = { frequency = 1.5, size = 1, richness = 1},
+        ["stone"] = { frequency = 1, size = 1, richness = 1},
+        ["iron-ore"] = { frequency = 1.5, size = 1, richness = 1},
+        ["coal"] = { frequency = 2, size = 1, richness = 0.75},
+        ["copper-ore"] = { frequency = 1, size = 1, richness = 1},
+        ["crude-oil"] = { frequency = 1.25, size = 1, richness = 1},
         ["trees"] = { frequency = 2, size = 2, richness = 1 },
         ["water"] = { frequency = 2, size = 2, richness = 2 },
+        ["nauvis_cliff"] = { frequency = 0.75, size = 1, richness = 1},
+        ["tungsten_ore"] = {},
     }
+
+    map_gen_setting.territory_settings = {
+        units = {"small-demolisher", "medium-demolisher", "big-demolisher"},
+        territory_index_expression = "demolisher_territory_expression",
+        territory_variation_expression = "demolisher_variation_expression",
+        minimum_territory_size = 10
+      }
 
     map_gen_setting.autoplace_settings["tile"] =
     {
@@ -110,6 +126,7 @@ function MapGen_Froodara()
     map_gen_setting.autoplace_settings["entity"] =  { 
         settings =
         {
+        ["tungsten-ore"] = {},
         ["iron-ore"] = {},
         ["copper-ore"] = {},
         ["stone"] = {},
@@ -144,12 +161,12 @@ local start_astroid_spawn_rate =
   probability_on_range_chunk =
   {
     {position = 0.1, probability = asteroid_util.nauvis_chunks, angle_when_stopped = asteroid_util.chunk_angle},
-    {position = 0.9, probability = asteroid_util.fulgora_chunks, angle_when_stopped = asteroid_util.chunk_angle}
+    {position = 0.9, probability = asteroid_util.nauvis_chunks, angle_when_stopped = asteroid_util.chunk_angle}
   },
   type_ratios =
   {
     {position = 0.1, ratios = asteroid_util.nauvis_ratio},
-    {position = 0.9, ratios = asteroid_util.fulgora_ratio},
+    {position = 0.9, ratios = asteroid_util.nauvis_ratio},
   }
 }
 local start_astroid_spawn = asteroid_util.spawn_definitions(start_astroid_spawn_rate, 0.1)
@@ -167,8 +184,8 @@ local froodara =
     starmap_icon_size = 512,
     magnitude = nauvis.magnitude,
     surface_properties = {
-        ["solar-power"] = 150,
-        ["pressure"] = nauvis.surface_properties["pressure"],
+        ["solar-power"] = 175,
+        ["pressure"] = data.raw["planet"]["vulcanus"].surface_properties["pressure"],
         ["magnetic-field"] = nauvis.surface_properties["magnetic-field"],
         ["day-night-cycle"] = nauvis.surface_properties["day-night-cycle"],
     },
@@ -182,8 +199,8 @@ froodara.orbit = {
         type = "space-location",
         name = "star",
     },
-    distance = 0.66,
-    orientation = 0.42
+    distance = 20,
+    orientation = 0.22
 }
 
 local froodara_connection = {
@@ -213,6 +230,10 @@ data:extend {{
             space_location = "froodara",
             use_icon_overlay_constant = true
         },
+        {
+            type = "unlock-recipe",
+            recipe = "advanced-oxide-asteroid-crushing"
+        }
     },
     prerequisites = {
         "space-science-pack",
