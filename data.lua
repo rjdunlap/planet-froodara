@@ -190,7 +190,8 @@ local froodara =
     },
     map_gen_settings = MapGen_Froodara(),
     asteroid_spawn_influence = 1,
-    asteroid_spawn_definitions = start_astroid_spawn
+    asteroid_spawn_definitions = start_astroid_spawn,
+    pollutant_type = "pollution"
 }
 
 froodara.orbit = {
@@ -220,7 +221,7 @@ data:extend {{
     type = "technology",
     name = "planet-discovery-froodara",
     icons = util.technology_icon_constant_planet("__planet-froodara__/graphics/planet-froodara.png"),
-    icon_size = 256,
+    icon_size = 512,
     essential = true,
     localised_description = {"space-location-description.froodara"},
     effects = {
