@@ -213,9 +213,14 @@ local froodara_connection = {
     asteroid_spawn_definitions = asteroid_util.spawn_definitions(asteroid_util.nauvis_vulcanus),
   }
 
+PlanetsLib.borrow_music(data.raw["planet"]["vulcanus"], froodara)
+
 PlanetsLib:extend({froodara})
 
+
 data:extend{froodara_connection}
+
+
 
 data:extend {{
     type = "technology",
