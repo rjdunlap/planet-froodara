@@ -217,9 +217,7 @@ PlanetsLib.borrow_music(data.raw["planet"]["vulcanus"], froodara)
 
 PlanetsLib:extend({froodara})
 
-
 data:extend{froodara_connection}
-
 
 
 data:extend {{
