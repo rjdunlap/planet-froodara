@@ -187,6 +187,7 @@ local froodara =
         ["pressure"] = data.raw["planet"]["vulcanus"].surface_properties["pressure"],
         ["magnetic-field"] = nauvis.surface_properties["magnetic-field"],
         ["day-night-cycle"] = nauvis.surface_properties["day-night-cycle"],
+        ["gravity"] = 9,
     },
     map_gen_settings = MapGen_Froodara(),
     asteroid_spawn_influence = 1,
@@ -223,7 +224,7 @@ data:extend{froodara_connection}
 data:extend {{
     type = "technology",
     name = "planet-discovery-froodara",
-    icons = util.technology_icon_constant_planet("__planet-froodara__/graphics/planet-froodara.png"),
+    icons = PlanetsLib.technology_icon_constant_planet("__planet-froodara__/graphics/planet-froodara.png", 512),
     icon_size = 512,
     essential = true,
     localised_description = {"space-location-description.froodara"},
