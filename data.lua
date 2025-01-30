@@ -182,6 +182,7 @@ local froodara =
     starmap_icon = "__planet-froodara__/graphics/planet-froodara.png",
     starmap_icon_size = 512,
     magnitude = nauvis.magnitude,
+    subgroup = "planets",
     surface_properties = {
         ["solar-power"] = 200,
         ["pressure"] = data.raw["planet"]["vulcanus"].surface_properties["pressure"],
