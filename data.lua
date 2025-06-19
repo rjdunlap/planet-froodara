@@ -19,7 +19,7 @@ function MapGen_Froodara()
         ["iron-ore"] = { frequency = 1.5, size = 1, richness = 1},
         ["coal"] = { frequency = 2, size = 1, richness = 0.75},
         ["copper-ore"] = { frequency = 1, size = 1, richness = 1},
-        ["crude-oil"] = { frequency = 1.25, size = 1, richness = 1},
+        ["crude-oil"] = { frequency = 3, size = 2, richness = 2},
         ["trees"] = { frequency = 2, size = 2, richness = 1 },
         ["water"] = { frequency = 1.75, size = 1.75, richness = 1.75},
         ["nauvis_cliff"] = { frequency = 0.75, size = 1, richness = 1},
