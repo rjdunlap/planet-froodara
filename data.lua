@@ -1,6 +1,5 @@
 --data.lua
 local asteroid_util = require("__space-age__.prototypes.planet.asteroid-spawn-definitions")
-require("froodara")
 
 --START MAP GEN
 function MapGen_Froodara()
@@ -253,4 +252,7 @@ data:extend {{
 }}
 
 
-APS.add_planet{name = "froodara", filename = "__planet-froodara__/froodara.lua", technology = "planet-discovery-froodara"}
+-- Any Planet Start is optional.
+if mods["any-planet-start"] then
+    APS.add_planet{name = "froodara", filename = "__planet-froodara__/froodara.lua", technology = "planet-discovery-froodara"}
+end
